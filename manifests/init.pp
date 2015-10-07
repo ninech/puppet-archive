@@ -21,6 +21,7 @@
 # - *$strip_components: Default value 0
 # - *$proxy_server: Default value undef
 # - *$user: User used to do the download and the extraction. The final directory will be used by him/her.
+# - *unless: Condition for not extracting the archive. Default undef
 #
 # Example usage:
 #
@@ -49,6 +50,7 @@ define archive (
   $proxy_server=undef,
   $purge_target=false,
   $user=undef,
+  $unless=undef,
 ) {
 
   archive::download {"${name}.${extension}":
@@ -78,5 +80,6 @@ define archive (
     strip_components => $strip_components,
     require          => Archive::Download["${name}.${extension}"],
     user             => $user,
+    unless           => $unless,
   }
 }

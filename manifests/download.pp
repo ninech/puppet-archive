@@ -113,7 +113,6 @@ define archive::download (
               $digest_src = $digest_url
             }
 
-
             exec {"download digest of archive ${name}":
               command => "curl ${proxy_option} -s -S ${insecure_arg} ${redirect_arg} -o ${src_target}/${name}.${digest_type} '${digest_src}'",
               creates => "${src_target}/${name}.${digest_type}",
@@ -122,6 +121,7 @@ define archive::download (
               notify  => Exec["download archive ${name} and check sum"],
               user    => $user,
               require => Package['curl'],
+              unless  => $unless,
             }
 
           }

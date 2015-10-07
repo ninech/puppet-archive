@@ -11,6 +11,7 @@
 # - *$timeout: Default value 120.
 # - *$strip_components: Default value 0.
 # - *$user: The user used to do the extraction.
+# - *$unless: Unless condition for not doing the download and not doing the extraction step. Default: undef
 #
 # Example usage:
 #
@@ -41,6 +42,7 @@ define archive::extract (
   $strip_components=0,
   $purge=false,
   $user=undef,
+  $unless=undef,
 ) {
 
   if $root_dir {
@@ -78,6 +80,7 @@ define archive::extract (
         timeout => $timeout,
         user    => $user,
         path    => $path,
+        unless  => $unless,
       }
     }
     'absent': {
