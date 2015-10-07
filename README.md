@@ -96,6 +96,20 @@ archive { '0.5.1_linux_amd64':
 }
 ```
 
+The extraction process of the downloaded archive can be guided using the ```unless``` option, this can be usefull for rerunning puppet applies.
+
+```
+archive { '0.5.1_linux_amd64':
+   ensure => present,
+   url => 'https://dl.bintray.com/mitchellh/packer/0.5.1_linux_amd64.zip',
+   target => '/usr/local/bin',
+   src_target => '/tmp',
+   unless => '/usr/bin/test -e /usr/local/bin/packer'
+}
+```
+
+
+
 License
 -------
 
